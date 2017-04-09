@@ -11,9 +11,14 @@
 </html>
 
 <script id="header" type="x-template/underscore">
-  <div>template example</div>
-  <p>name <%- name %></p>
-  <p>message <%- message %></p>
+  <div>parent</div>
+  <p>count <%- count %></p>
+  <div id="child-region"></div>
+</script>
+
+<script id="child-tmpl" type="x-template/underscore">
+<button id="count-up">count up</button>
+<button id="count-down">count up</button>
 </script>
 
 <script src="/dist/build.js"></script>
