@@ -1,6 +1,14 @@
-import Backbone from 'backbone'
+import Bb from 'backbone'
+import Mn from 'backbone.marionette'
 
-const Model = Backbone.Model.extend()
-const model = new Model({foo: 1, bar: 3})
-console.log(model.get('foo'))
-console.log(model.get('bar'))
+const date = {name: 'foo', message: 'bar'}
+
+const View = Mn.View.extend({
+  el: "#app",
+  template: "#header"
+})
+
+const model = new Bb.Model(date)
+console.log(model)
+const view = new View({model: model})
+view.render()
