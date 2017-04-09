@@ -31,7 +31,7 @@
         # "no-empty-pattern": 2,
         # "no-this-before-super": 2,
         # "no-var": 2,
-        # "no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
+        "no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
         # "object-shorthand": 2,
         # "prefer-arrow-callback": 2,
         # "prefer-const": 2,
