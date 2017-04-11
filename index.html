@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <title>MarionettePlayground</title>
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
   </head>
   <body>
     MarioneetePlayground
-    <div id="app"></div>
+    <div id="app">
+      <div id="counter"></div>
+      <div id="users"></div>
+    </div>
   </body>
 </html>
 
@@ -21,6 +23,13 @@
 <script id="child-tmpl" type="x-template/underscore">
 <button id="count-up">count up</button>
 <button id="count-down">count up</button>
+</script>
+
+<script id="user-tmpl" type="x-template/underscore">
+user-child-view
+<div id="name">name: <%- name %></div>
+<div id="hp">hp: <%- hp %></div>
+<br>
 </script>
 
 <script src="/dist/build.js"></script>

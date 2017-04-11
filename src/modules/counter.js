@@ -17,7 +17,7 @@ const ChildView = Mn.View.extend({
 })
 
 export const ParentView = Mn.View.extend({
-  el: "#app",
+  el: "#counter",
   template: "#header",
   regions: {
     childRegion: "#child-region"
