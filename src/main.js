@@ -1,6 +1,7 @@
 import { ParentView, CounterModel } from './modules/counter'
 import { UserModel, UserCollectionView } from './modules/users'
-import Bb from 'backbone'
+import dispatcher from './modules/dispatcher'
+import Store from './modules/store'
 
 const data = {
   counter: {
@@ -13,11 +14,13 @@ const data = {
   ],
 }
 
-const counterModel = new CounterModel(data.counter)
+const store = new Store({dispatcher, data})
+
+const counterModel = store.get('counterModel')
 const view = new ParentView({model: counterModel})
 view.render()
 
-const userModels = data.users.map((user) => { return new UserModel(user) })
+const userModels = store.get('userModels')
 const userCollectionView = new UserCollectionView()
 userModels.forEach((userModel) => { userCollectionView.collection.add(userModel) })
 userCollectionView.render()
