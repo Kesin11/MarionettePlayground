@@ -39,7 +39,7 @@
         # "prefer-spread": 2,
         # "prefer-template": 2,
         # "require-yield": 2,
-        #
+        "comma-dangle": ["error", "always-multiline"],
         "no-console": 1,
         "no-debugger": 1,
     }
