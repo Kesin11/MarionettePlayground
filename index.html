@@ -26,9 +26,17 @@
 </script>
 
 <script id="user-tmpl" type="x-template/underscore">
-user-child-view
 <div id="name">name: <%- name %></div>
-<div id="hp">hp: <%- hp %></div>
+<div class="progress">
+  <div class="progress-bar progress-bar-info" role="progressbar"
+    aria-valuenow="<%- hp %>"
+    aria-valuemin="0"
+    aria-valuemax="<%- maxHp %>"
+    style="width: <%- currentHpPercent %>%"
+    >
+    <%- hp %>
+  </div>
+</div>
 <button id="select-btn" class="btn btn-default btn-sm <%- activeClass %>">select</button>
 <br>
 </script>

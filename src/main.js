@@ -4,12 +4,12 @@ import Bb from 'backbone'
 
 const data = {
   counter: {
-    count: 0
+    count: 0,
   },
   users: [
-    { name: 'foo', hp: 100, },
-    { name: 'bar', hp: 200, },
-    { name: 'hoge', hp: 150, },
+    { name: 'foo', hp: 100, maxHp: 200 },
+    { name: 'bar', hp: 200, maxHp: 200 },
+    { name: 'hoge', hp: 150, maxHp: 200 },
   ],
 }
 

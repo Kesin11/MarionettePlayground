@@ -9,6 +9,7 @@ export const UserModel = Bb.Model.extend({
   defaults: {
     "name": "empty",
     "hp": 0,
+    "maxHp": 0,
     "selected": false,
   },
   toggleSelected: function() {
@@ -18,6 +19,9 @@ export const UserModel = Bb.Model.extend({
     else {
       this.set('selected', true)
     }
+  },
+  getCurrentHpPercent: function() {
+    return 100 * this.get('hp') / this.get('maxHp')
   },
 })
 
@@ -30,7 +34,8 @@ const UserView = Mn.View.extend({
   // css classとかviewでしか使わない変数はここで定義してModelを汚染しないようにする
   templateContext: function() {
     return {
-      'activeClass': (this.model.get('selected')) ? CLASS_NAME.active : '',
+      "activeClass": (this.model.get('selected')) ? CLASS_NAME.active : '',
+      "currentHpPercent": this.model.getCurrentHpPercent(),
     }
   },
   // modelの更新を検知して自身をrender
