@@ -5,26 +5,26 @@ const ChildView = Mn.View.extend({
   template: "#child-tmpl",
   // triggersは直接イベントを発火させる。イベントの引数にはchildViewが付く
   triggers: {
-    "click #count-up": "count:up"
+    "click #count-up": "count:up",
   },
   // eventsはメソッドを呼び出す。引数は自分で決められる
   events: {
-    "click #count-down": "countDown"
+    "click #count-down": "countDown",
   },
   countDown: function() {
     this.triggerMethod("child count:down", 2)
-  }
+  },
 })
 
 export const ParentView = Mn.View.extend({
   el: "#counter",
   template: "#header",
   regions: {
-    childRegion: "#child-region"
+    childRegion: "#child-region",
   },
   // modelのイベントをハンドリング
   modelEvents: {
-    "change": "onModelChange"
+    "change": "onModelChange",
   },
   onModelChange: function() {
     this.render()
@@ -52,5 +52,5 @@ export const CounterModel = Bb.Model.extend({
   },
   decrement: function(num) {
     this.set('count', this.get('count') - num)
-  }
+  },
 })
