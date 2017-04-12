@@ -1,5 +1,6 @@
 import { ParentView, CounterModel } from './modules/counter'
 import { UserModel, UserCollectionView } from './modules/users'
+import Bb from 'backbone'
 
 const data = {
   counter: {
@@ -18,5 +19,9 @@ view.render()
 
 const userModels = data.users.map((user) => { return new UserModel(user) })
 const userCollectionView = new UserCollectionView()
-userCollectionView.render()
 userModels.forEach((userModel) => { userCollectionView.collection.add(userModel) })
+userCollectionView.render()
+
+// collectionを直接操作して再render()すれば反映される
+// userCollectionView.collection.reset()
+// userCollectionView.rende
