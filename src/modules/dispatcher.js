@@ -1,4 +1,3 @@
-import Bb from 'backbone'
-import _ from 'underscore'
+import Mn from 'backbone.marionette'
 
-export default _.clone(Bb.Events)
+export default new Mn.Object({})
