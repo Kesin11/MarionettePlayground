@@ -22,21 +22,16 @@ const counterModel = store.get('counterModel')
 const view = new ParentView({model: counterModel})
 view.render()
 
-const userModels = store.get('userModels')
+const userCollection = store.get('userCollection')
 const userCollectionView = new UserCollectionView()
-userModels.forEach((userModel) => { userCollectionView.collection.add(userModel) })
+userCollectionView.collection.reset(userCollection.models)
 userCollectionView.render()
 
 // collectionを直接操作して再render()すれば反映される
 // userCollectionView.collection.reset()
-// userCollectionView.rende
+// userCollectionView.render
 
 // 本来は不要だがFakeServerに状態を持たせるため
 action.server.setFakeData(data)
 
 action.startPolling()
-
-// dispatcher.on("store:change", () => {
-//   view.render()
-//   userCollectionView.render()
-// })

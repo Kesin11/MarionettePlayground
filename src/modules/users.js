@@ -5,7 +5,7 @@ const CLASS_NAME = {
   active: "active",
 }
 
-export const UserModel = Bb.Model.extend({
+const UserModel = Bb.Model.extend({
   defaults: {
     "name": "empty",
     "hp": 0,
@@ -24,6 +24,8 @@ export const UserModel = Bb.Model.extend({
     return 100 * this.get('hp') / this.get('maxHp')
   },
 })
+
+export const UserCollection = Bb.Collection.extend({ model: UserModel })
 
 const UserView = Mn.View.extend({
   template: "#user-tmpl",
@@ -46,7 +48,7 @@ const UserView = Mn.View.extend({
 
 export const UserCollectionView = Mn.CollectionView.extend({
   el: "#users",
-  collection: new Bb.Collection(),
+  collection: new UserCollection,
   childView: UserView,
   childViewEvents: {
     "select:user": 'onSelectUser',
