@@ -1,7 +1,8 @@
-import { ParentView, CounterModel } from './modules/counter'
-import { UserModel, UserCollectionView } from './modules/users'
+import { ParentView } from './modules/counter'
+import { UserCollectionView } from './modules/users'
 import dispatcher from './modules/dispatcher'
 import Store from './modules/store'
+import ActionCreator from './modules/action_creator'
 
 const data = {
   counter: {
@@ -15,6 +16,7 @@ const data = {
 }
 
 const store = new Store({dispatcher, data})
+const action = new ActionCreator(dispatcher)
 
 const counterModel = store.get('counterModel')
 const view = new ParentView({model: counterModel})
@@ -28,3 +30,13 @@ userCollectionView.render()
 // collectionを直接操作して再render()すれば反映される
 // userCollectionView.collection.reset()
 // userCollectionView.rende
+
+// 本来は不要だがFakeServerに状態を持たせるため
+action.server.setFakeData(data)
+
+action.startPolling()
+
+// dispatcher.on("store:change", () => {
+//   view.render()
+//   userCollectionView.render()
+// })
