@@ -18,9 +18,12 @@ const ChildView = Mn.View.extend({
 
 export const ParentView = Mn.View.extend({
   el: "#counter",
-  template: "#header",
+  template: false,
   regions: {
     childRegion: "#child-region",
+  },
+  ui: {
+    count: "#count",
   },
   // modelのイベントをハンドリング
   modelEvents: {
@@ -30,6 +33,7 @@ export const ParentView = Mn.View.extend({
     this.render()
   },
   onRender() {
+    this.getUI('count').text(this.model.get('count'))
     this.showChildView("childRegion", new ChildView())
   },
   // 明示的にChildViewのイベントをハンドリング

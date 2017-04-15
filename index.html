@@ -8,17 +8,15 @@
   <body>
     MarioneetePlayground
     <div id="app">
-      <div id="counter"></div>
+      <div id="counter">
+        <div>parent</div>
+        <p>count: <span id="count">10</span></p>
+        <div id="child-region"></div>
+      </div>
       <div id="users"></div>
     </div>
   </body>
 </html>
-
-<script id="header" type="x-template/underscore">
-  <div>parent</div>
-  <p>count <%- count %></p>
-  <div id="child-region"></div>
-</script>
 
 <script id="child-tmpl" type="x-template/underscore">
 <button id="count-up">count up</button>

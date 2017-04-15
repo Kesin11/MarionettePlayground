@@ -32,6 +32,6 @@ userCollectionView.render()
 // userCollectionView.render
 
 // 本来は不要だがFakeServerに状態を持たせるため
-action.server.setFakeData(data)
+action.server.setStore(store)
 
 action.startPolling()
