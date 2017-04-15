@@ -11,6 +11,9 @@ export default Bb.Model.extend({
     // pollingイベント
     this.get('dispatcher').on('polling:success', this.onPollingSuccess, this)
   },
+  dispatch(event_name, payload) {
+    this.get('dispatcher').trigger(event_name, payload)
+  },
   initModels: function() {
     this.set('userCollection', new UserCollection(this.get('data').users))
     this.set('counterModel', new CounterModel(this.get('data').counter))
@@ -29,6 +32,6 @@ export default Bb.Model.extend({
     this.set('data', newData)
     this.updateModels()
 
-    this.get('dispatcher').trigger('store:change')
+    this.dispatch("store:change")
   },
 })

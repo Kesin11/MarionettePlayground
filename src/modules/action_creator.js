@@ -7,10 +7,13 @@ export default class ActionCreator {
     this.server = new FakeServer()
     this.dispatcher = dispatcher
   }
+  dispatch(event_name, payload) {
+    this.dispatcher.trigger(event_name, payload)
+  }
   startPolling() {
     this.interval = setInterval(() => {
       this.server.getNewData().then((data) => {
-        this.dispatcher.trigger("polling:success", data)
+        this.dispatch("polling:success", data)
       })
     }, 2000)
   }
