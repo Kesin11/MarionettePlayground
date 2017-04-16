@@ -1,9 +1,6 @@
 import Bb from 'backbone'
+import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
-
-const CLASS_NAME = {
-  active: "active",
-}
 
 const UserModel = Bb.Model.extend({
   defaults: {
@@ -34,15 +31,39 @@ const UserView = Mn.View.extend({
   },
   // テンプレートに追加で渡す変数
   // css classとかviewでしか使わない変数はここで定義してModelを汚染しないようにする
-  templateContext: function() {
-    return {
-      "activeClass": (this.model.get('selected')) ? CLASS_NAME.active : '',
-      "currentHpPercent": this.model.getCurrentHpPercent(),
-    }
+  // templateContext: function() {
+  //   return {
+  //     "currentHpPercent": this.model.getCurrentHpPercent(),
+  //   }
+  // },
+  onRender() {
+    this.stickit()
   },
-  // modelの更新を検知して自身をrender
-  modelEvents: {
-    "change": function() { this.render() },
+  bindings: {
+    "#select-btn": {
+      // classのbindingsは特殊な書き方
+      // onGetに条件を定義し、それが満たされたときに定義したクラス名が付けられる
+      classes: {
+        active: {
+          observe: "selected",
+          onGet: function(selected) {
+            return selected === true
+          },
+        },
+      },
+    },
+    ".progress-bar": {
+      observe: "hp",
+      // 特定のattributeを変化させたい場合
+      attributes: [{
+        name: "style",
+        observe: "hp",
+        onGet: function(_hp) {
+          const currentHpPercent = this.model.getCurrentHpPercent()
+          return `width: ${currentHpPercent}%`
+        },
+      }],
+    },
   },
 })
 
