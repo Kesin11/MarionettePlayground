@@ -28,6 +28,10 @@
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.19.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0"
   }
