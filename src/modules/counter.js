@@ -1,4 +1,6 @@
 import Bb from 'backbone'
+// stickitがimportされたときにbackbone.viewがmixinで拡張される
+import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
 
 const ChildView = Mn.View.extend({
@@ -25,6 +27,9 @@ export const ParentView = Mn.View.extend({
   ui: {
     count: "#count",
   },
+  bindings: {
+    "#count": "count",
+  },
   // modelのイベントをハンドリング
   modelEvents: {
     "change": "onModelChange",
@@ -33,7 +38,9 @@ export const ParentView = Mn.View.extend({
     this.render()
   },
   onRender() {
-    this.getUI('count').text(this.model.get('count'))
+    // 以下の手動バインディングと同等のことをstickitが担当する
+    // this.getUI('count').text(this.model.get('count'))
+    this.stickit()
     this.showChildView("childRegion", new ChildView())
   },
   // 明示的にChildViewのイベントをハンドリング
