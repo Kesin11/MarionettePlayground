@@ -5,7 +5,6 @@ import { CounterModel } from './counter'
 export default Bb.Model.extend({
   // Modelのネストを実現するのにconstructorをoverrideでは上手くいかなかったのでその後のinitializeフェーズでセットしていく
   initialize: function() {
-    // TODO: 毎回作り直しじゃなくて本当にupdateでデータ更新でも問題ないような？
     this.initModels()
 
     // pollingイベント
