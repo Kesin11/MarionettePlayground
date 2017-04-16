@@ -1,3 +1,19 @@
 #app {
   padding: 10px;
 }
+
+#users {
+  .progress.revive-animation {
+      border: 1px solid rgba(255, 0, 0, 0);
+      animation: flashing 0.7s ease-out;
+  }
+}
+
+@keyframes flashing {
+  0% {
+    border-color: rgba(255, 0, 0, 1)
+  }
+  100% {
+    border-color: rgba(255, 0, 0, 0)
+  }
+}

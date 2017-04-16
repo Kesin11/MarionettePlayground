@@ -17,11 +17,17 @@ export default class FakeServer {
 
     return new Promise(resolve => {
       setTimeout(() => {
-        // HPを減少させる
+        // HPを減少させて復活したときはrevivedフラグをONにする
         const users = new_data.users
         users.forEach((user) => {
-          if (user.hp <= 0) return user.hp = user.maxHp
-          return user.hp = user.hp - HP_DECREMENT_VALUE
+          if (user.hp <= 0) {
+            user.hp = user.maxHp
+            user.isRevived = true
+          }
+          else {
+            user.hp = user.hp - HP_DECREMENT_VALUE
+            user.isRevived = false
+          }
         })
 
         resolve(new_data)

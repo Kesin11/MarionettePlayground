@@ -9,8 +9,8 @@ const data = {
     count: 0,
   },
   users: [
-    { name: 'foo', hp: 100, maxHp: 200 },
-    { name: 'bar', hp: 200, maxHp: 200 },
+    { name: 'foo', hp: 10, maxHp: 200 },
+    { name: 'bar', hp: 20, maxHp: 200 },
     { name: 'hoge', hp: 150, maxHp: 200 },
   ],
 }

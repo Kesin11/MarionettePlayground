@@ -7,6 +7,7 @@ const UserModel = Bb.Model.extend({
     "name": "empty",
     "hp": 0,
     "maxHp": 0,
+    "isRevived": false,
     "selected": false,
   },
   toggleSelected: function() {
@@ -48,6 +49,16 @@ const UserView = Mn.View.extend({
           observe: "selected",
           onGet: function(selected) {
             return selected === true
+          },
+        },
+      },
+    },
+    ".progress": {
+      classes: {
+        "revive-animation": {
+          observe: "isRevived",
+          onGet: function(isRevived) {
+            return isRevived === true
           },
         },
       },
