@@ -42,11 +42,11 @@ const UserView = Mn.View.extend({
     this.stickit()
   },
   bindings: {
-    "#select-btn": {
+    ":el": {
       // classのbindingsは特殊な書き方
       // onGetに条件を定義し、それが満たされたときに定義したクラス名が付けられる
       classes: {
-        active: {
+        selected: {
           observe: "selected",
           onGet: function(selected) {
             return selected === true
