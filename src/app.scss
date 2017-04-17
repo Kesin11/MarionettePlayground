@@ -1,8 +1,17 @@
 #app {
-  padding: 10px;
+  padding: 5px;
+}
+
+#users {
+  display: flex; // 昔は-webkit-box
+  flex-wrap: wrap; // 昔は-webkit-flex
+  width: 320px;
+  margin: 0 auto;
 }
 
 .user {
+  margin: 5px;
+  width: 140px;
   .progress.revive-animation {
       border: 1px solid rgba(255, 0, 0, 0);
       animation: flashing 0.7s ease-out;
