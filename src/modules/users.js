@@ -27,6 +27,7 @@ export const UserCollection = Bb.Collection.extend({ model: UserModel })
 
 const UserView = Mn.View.extend({
   template: "#user-tmpl",
+  className: "user",
   triggers: {
     "click #select-btn": "select:user",
   },
