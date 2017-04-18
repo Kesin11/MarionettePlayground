@@ -23,7 +23,16 @@ const UserModel = Bb.Model.extend({
   },
 })
 
-export const UserCollection = Bb.Collection.extend({ model: UserModel })
+export const UserCollection = Bb.Collection.extend({
+  model: UserModel,
+  // collectionのsetは配列でobjectをまとめて渡すとidが一致すればupdate, collection側にまだ無ければadd,
+  // collectionにあったが配列になければremoveをやってくれる
+  // idはobjectに元々存在していればそれが使われるが、modelId()で動的に指定することも可能
+  modelId: function(attrs) {
+    // user_idをidの代わりとして使う
+    return attrs.user_id
+  },
+})
 
 const UserView = Mn.View.extend({
   template: "#user-tmpl",
@@ -81,10 +90,12 @@ const UserView = Mn.View.extend({
 
 export const UserCollectionView = Mn.CollectionView.extend({
   el: "#users",
-  collection: new UserCollection,
   childView: UserView,
   childViewEvents: {
     "select:user": 'onSelectUser',
+  },
+  initialize(args) {
+    this.collection = args.collection
   },
   onSelectUser: function(userView) {
     userView.model.toggleSelected()

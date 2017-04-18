@@ -9,6 +9,9 @@ export default Bb.Model.extend({
 
     // pollingイベント
     this.get('dispatcher').on('polling:success', this.onPollingSuccess, this)
+    // ユーザー追加、削除
+    this.get('dispatcher').on('add:user:success', this.onAddUser, this)
+    this.get('dispatcher').on('remove:user:success', this.onRemoveUser, this)
   },
   dispatch(event_name, payload) {
     this.get('dispatcher').trigger(event_name, payload)
@@ -20,17 +23,23 @@ export default Bb.Model.extend({
   updateModels: function() {
     const data = this.get('data')
 
-    // idとか無いので対応付けせずにすごい雑にupdateしてます
-    this.get('userCollection').models.forEach((userModel, i) => {
-      userModel.set(data.users[i])
-    })
+    // collectionのsetは配列の中身を見て自動的に管理しているModelのupdate, add, removeをしてくれる
+    this.get('userCollection').set(data.users)
     this.get('counterModel').set(data.counter)
+
+    this.dispatch("store:change")
   },
   // ポーリング成功時にはModelを更新してイベントを発行する
   onPollingSuccess: function(newData) {
     this.set('data', newData)
     this.updateModels()
-
-    this.dispatch("store:change")
+  },
+  onAddUser: function(newData) {
+    this.set('data', newData)
+    this.updateModels()
+  },
+  onRemoveUser: function(newData) {
+    this.set('data', newData)
+    this.updateModels()
   },
 })

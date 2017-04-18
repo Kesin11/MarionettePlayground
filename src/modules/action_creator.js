@@ -17,4 +17,14 @@ export default class ActionCreator {
       })
     }, 2000)
   }
+  addUser() {
+    this.server.addUser().then((data) => {
+      this.dispatch("add:user:success", data)
+    })
+  }
+  removeUser() {
+    this.server.removeUser().then((data) => {
+      this.dispatch("remove:user:success", data)
+    })
+  }
 }
