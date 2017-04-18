@@ -5,7 +5,7 @@ import { CounterModel } from './counter'
 export default Bb.Model.extend({
   // Modelのネストを実現するのにconstructorをoverrideでは上手くいかなかったのでその後のinitializeフェーズでセットしていく
   initialize: function() {
-    this.initModels()
+    this.initModels(this.get('data'))
 
     // pollingイベント
     this.get('dispatcher').on('polling:success', this.onPollingSuccess, this)
@@ -16,30 +16,25 @@ export default Bb.Model.extend({
   dispatch(event_name, payload) {
     this.get('dispatcher').trigger(event_name, payload)
   },
-  initModels: function() {
-    this.set('userCollection', new UserCollection(this.get('data').users))
-    this.set('counterModel', new CounterModel(this.get('data').counter))
+  initModels: function(new_data) {
+    this.set('userCollection', new UserCollection(new_data.users))
+    this.set('counterModel', new CounterModel(new_data.counter))
   },
-  updateModels: function() {
-    const data = this.get('data')
-
+  updateModels: function(new_data) {
     // collectionのsetは配列の中身を見て自動的に管理しているModelのupdate, add, removeをしてくれる
-    this.get('userCollection').set(data.users)
-    this.get('counterModel').set(data.counter)
+    this.get('userCollection').set(new_data.users)
+    this.get('counterModel').set(new_data.counter)
 
     this.dispatch("store:change")
   },
   // ポーリング成功時にはModelを更新してイベントを発行する
   onPollingSuccess: function(newData) {
-    this.set('data', newData)
-    this.updateModels()
+    this.updateModels(newData)
   },
   onAddUser: function(newData) {
-    this.set('data', newData)
-    this.updateModels()
+    this.updateModels(newData)
   },
   onRemoveUser: function(newData) {
-    this.set('data', newData)
-    this.updateModels()
+    this.updateModels(newData)
   },
 })
