@@ -14,6 +14,11 @@
         <div>parent</div>
         <p>count: <span id="count">10</span></p>
         <div id="child-region"></div>
+          <script id="child-tmpl" type="x-template/underscore">
+          <button id="count-up">count up</button>
+          <button id="count-down">count up</button>
+          </script>
+        </div>
       </div>
 
       <div id="user-group">
@@ -21,26 +26,22 @@
         <button id="add-user">add_user</button>
         <button id="remove-user">remove_user</button>
         <div id="users"></div>
+          <script id="user-tmpl" type="x-template/underscore">
+          <div id="name">name: <%- name %></div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar"
+              style="width:0%"
+              >
+            </div>
+          </div>
+          <button id="select-btn" class="btn btn-default btn-sm">select</button>
+          <br>
+          </script>
+
       </div>
     </div>
   </body>
 </html>
 
-<script id="child-tmpl" type="x-template/underscore">
-<button id="count-up">count up</button>
-<button id="count-down">count up</button>
-</script>
-
-<script id="user-tmpl" type="x-template/underscore">
-<div id="name">name: <%- name %></div>
-<div class="progress">
-  <div class="progress-bar progress-bar-info" role="progressbar"
-    style="width:0%"
-    >
-  </div>
-</div>
-<button id="select-btn" class="btn btn-default btn-sm">select</button>
-<br>
-</script>
 
 <script src="/dist/build.js"></script>
