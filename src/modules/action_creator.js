@@ -12,19 +12,19 @@ export default class ActionCreator {
   }
   startPolling() {
     this.interval = setInterval(() => {
-      this.server.getNewData().then((data) => {
-        this.dispatch("polling:success", data)
+      this.server.getNewState().then((state) => {
+        this.dispatch("polling:success", state)
       })
     }, 2000)
   }
   addUser() {
-    this.server.addUser().then((data) => {
-      this.dispatch("add:user:success", data)
+    this.server.addUser().then((state) => {
+      this.dispatch("add:user:success", state)
     })
   }
   removeUser() {
-    this.server.removeUser().then((data) => {
-      this.dispatch("remove:user:success", data)
+    this.server.removeUser().then((state) => {
+      this.dispatch("remove:user:success", state)
     })
   }
 }

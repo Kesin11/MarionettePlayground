@@ -1,40 +1,33 @@
-import Bb from 'backbone'
-import { UserCollection } from './users'
-import { CounterModel } from './counter'
+// storeはApp全体のstateの管理とdispatchを担当
+// stateはAppの状態を全て持つ普通のObject
 
-export default Bb.Model.extend({
-  // Modelのネストを実現するのにconstructorをoverrideでは上手くいかなかったのでその後のinitializeフェーズでセットしていく
-  initialize: function() {
-    this.initModels(this.get('data'))
+export default class store {
+  // store.usersなどでアクセスできるようにしておく
+  constructor(dispatcher, state) {
+    this.dispatcher = dispatcher
+    this.state = state
 
     // pollingイベント
-    this.get('dispatcher').on('polling:success', this.onPollingSuccess, this)
-    // ユーザー追加、削除
-    this.get('dispatcher').on('add:user:success', this.onAddUser, this)
-    this.get('dispatcher').on('remove:user:success', this.onRemoveUser, this)
-  },
+    this.dispatcher.on("polling:success", this.onPollingSuccess, this)
+    this.dispatcher.on("add:user:success", this.onChangeUser, this)
+    this.dispatcher.on("remove:user:success", this.onChangeUser, this)
+  }
+  // 自身のstateを上書きする
+  updateState(state) {
+    this.state = state
+    this.dispatch("change:store", this)
+  }
   dispatch(event_name, payload) {
-    this.get('dispatcher').trigger(event_name, payload)
-  },
-  initModels: function(new_data) {
-    this.set('userCollection', new UserCollection(new_data.users))
-    this.set('counterModel', new CounterModel(new_data.counter))
-  },
-  updateModels: function(new_data) {
-    // collectionのsetは配列の中身を見て自動的に管理しているModelのupdate, add, removeをしてくれる
-    this.get('userCollection').set(new_data.users)
-    this.get('counterModel').set(new_data.counter)
-
-    this.dispatch("store:change")
-  },
-  // ポーリング成功時にはModelを更新してイベントを発行する
-  onPollingSuccess: function(newData) {
-    this.updateModels(newData)
-  },
-  onAddUser: function(newData) {
-    this.updateModels(newData)
-  },
-  onRemoveUser: function(newData) {
-    this.updateModels(newData)
-  },
-})
+    this.dispatcher.trigger(event_name, payload)
+  }
+  on(event_name, handler) {
+    this.dispatcher.on(event_name, handler, this)
+  }
+  // ポーリング成功時にはnewStateで上書きする
+  onPollingSuccess(newState) {
+    this.updateState(newState)
+  }
+  onChangeUser(newState) {
+    this.updateState(newState)
+  }
+}

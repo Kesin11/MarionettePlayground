@@ -12,6 +12,7 @@ export const UserGroupView = Mn.View.extend({
     "click #remove-user": function() { this.action.removeUser()},
   },
   initialize(args) {
+    this.model = new UserGroupModel()
     this.action = args.action
   },
   onRender() {

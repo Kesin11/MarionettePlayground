@@ -1,11 +1,11 @@
 import { ParentView } from './modules/counter'
 import { UserCollectionView } from './modules/users'
-import { UserGroupView, UserGroupModel } from './modules/user_group'
+import { UserGroupView } from './modules/user_group'
 import dispatcher from './modules/dispatcher'
 import Store from './modules/store'
 import ActionCreator from './modules/action_creator'
 
-const data = {
+const state = {
   counter: {
     count: 0,
   },
@@ -16,19 +16,16 @@ const data = {
   ],
 }
 
-const store = new Store({dispatcher, data})
+const store = new Store(dispatcher, state)
 const action = new ActionCreator(dispatcher)
 
-const counterModel = store.get('counterModel')
-const view = new ParentView({model: counterModel})
+const view = new ParentView({ store })
 view.render()
 
-const userGroupModel = new UserGroupModel({})
-const userGroupView = new UserGroupView({model: userGroupModel, action: action})
+const userGroupView = new UserGroupView({ store, action })
 userGroupView.render()
 
-const userCollection = store.get('userCollection')
-const userCollectionView = new UserCollectionView({collection: userCollection})
+const userCollectionView = new UserCollectionView({ store })
 userCollectionView.render()
 
 // 本来は不要だがFakeServerに状態を持たせるため

@@ -95,7 +95,11 @@ export const UserCollectionView = Mn.CollectionView.extend({
     "select:user": 'onSelectUser',
   },
   initialize(args) {
-    this.collection = args.collection
+    this.store = args.store
+    this.collection = new UserCollection(this.store.state.users)
+    this.store.on("change:store", (store) => {
+      this.collection.set(store.state.users)
+    })
   },
   onSelectUser: function(userView) {
     userView.model.toggleSelected()

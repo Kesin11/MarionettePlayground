@@ -34,6 +34,9 @@ export const ParentView = Mn.View.extend({
   modelEvents: {
     "change": "onModelChange",
   },
+  initialize(args) {
+    this.model = new CounterModel(args.store.state.counter)
+  },
   onModelChange: function() {
     this.render()
   },
