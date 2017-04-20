@@ -1,10 +1,10 @@
 import { ParentView } from './modules/Counter'
 import { UserGroupView } from './modules/UserGroup'
-import dispatcher from './modules/Dispatcher'
-import Store from './modules/Store'
-import ActionCreator from './modules/ActionCreator'
+import dispatcher from './Dispatcher'
+import Store from './Store'
+import ActionCreator from './ActionCreator'
 
-const state = {
+const init_state = {
   counter: {
     count: 0,
   },
@@ -18,7 +18,7 @@ const state = {
   },
 }
 
-const store = new Store(dispatcher, state)
+const store = new Store(dispatcher, init_state)
 const action = new ActionCreator(dispatcher)
 
 const view = new ParentView({ store })

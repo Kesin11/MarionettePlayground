@@ -2,12 +2,10 @@
 // stateはAppの状態を全て持つ普通のObject
 
 export default class store {
-  // store.usersなどでアクセスできるようにしておく
   constructor(dispatcher, state) {
     this.dispatcher = dispatcher
     this.state = state
 
-    // pollingイベント
     this.dispatcher.on("polling:success", this.onPollingSuccess, this)
     this.dispatcher.on("add:user:success", this.onChangeUser, this)
     this.dispatcher.on("remove:user:success", this.onChangeUser, this)
@@ -23,7 +21,7 @@ export default class store {
   on(event_name, handler) {
     this.dispatcher.on(event_name, handler, this)
   }
-  // ポーリング成功時にはnewStateで上書きする
+
   onPollingSuccess(newState) {
     this.updateState(newState)
   }

@@ -1,5 +1,5 @@
 import FakeServer from './FakeServer'
-// ActionCreatorという名前が適切かは怪しいが、ここで何からの処理を行って
+// ActionCreatorという名前が適切かは怪しいが、ここで何かしらの処理を行って
 // イベントをdispatch, storeはそれをキャッチして自身を更新してもらう
 
 export default class ActionCreator {
