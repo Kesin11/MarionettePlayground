@@ -89,16 +89,16 @@ const UserView = Mn.View.extend({
 })
 
 export const UserCollectionView = Mn.CollectionView.extend({
-  el: "#users",
+  className: "users",
   childView: UserView,
   childViewEvents: {
     "select:user": 'onSelectUser',
   },
   initialize(args) {
     this.store = args.store
-    this.collection = new UserCollection(this.store.state.users)
+    this.collection = new UserCollection(this.store.state.user_group.users)
     this.store.on("change:store", (store) => {
-      this.collection.set(store.state.users)
+      this.collection.set(store.state.user_group.users)
     })
   },
   onSelectUser: function(userView) {

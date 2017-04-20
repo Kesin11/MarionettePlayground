@@ -19,7 +19,7 @@ export default class FakeServer {
     return new Promise(resolve => {
       setTimeout(() => {
         // HPを減少させて復活したときはrevivedフラグをONにする
-        newState.users.forEach((user) => {
+        newState.user_group.users.forEach((user) => {
           if (user.hp <= 0) {
             user.hp = user.maxHp
             user.isRevived = true
@@ -37,15 +37,17 @@ export default class FakeServer {
   // 適当なユーザーを一人追加
   addUser () {
     const newState = this.cloneState(this.store.state)
+    const newUser = {
+      user_id: 100 + add_user_count,
+      name: "user" + add_user_count,
+      hp: 50,
+      maxHp: 100,
+    }
     return new Promise(resolve => {
       setTimeout(() => {
-        newState.users.push({
-          user_id: 100 + add_user_count,
-          name: "user" + add_user_count,
-          hp: 50,
-          maxHp: 100,
-        })
+        newState.user_group.users.push(newUser)
         add_user_count += 1
+        newState.user_group.last_add_name = newUser.name
 
         resolve(newState)
       }, 50)
@@ -56,7 +58,7 @@ export default class FakeServer {
     const newState = this.cloneState(this.store.state)
     return new Promise(resolve => {
       setTimeout(() => {
-        newState.users.splice(Math.floor(Math.random() * newState.users.length), 1)
+        newState.user_group.users.splice(Math.floor(Math.random() * newState.user_group.users.length), 1)
 
         resolve(newState)
       }, 50)

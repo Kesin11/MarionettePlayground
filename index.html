@@ -14,30 +14,29 @@
         <div>parent</div>
         <p>count: <span id="count">10</span></p>
         <div id="child-region"></div>
-          <script id="child-tmpl" type="x-template/underscore">
-          <button id="count-up">count up</button>
-          <button id="count-down">count up</button>
-          </script>
-        </div>
+        <script id="child-tmpl" type="x-template/underscore">
+        <button id="count-up">count up</button>
+        <button id="count-down">count up</button>
+        </script>
       </div>
 
       <div id="user-group">
-        <div id="last-add-user"></div>
+        last add user: <span id="last-add-user"></span><br>
         <button id="add-user">add_user</button>
         <button id="remove-user">remove_user</button>
-        <div id="users"></div>
-          <script id="user-tmpl" type="x-template/underscore">
-          <div id="name">name: <%- name %></div>
-          <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar"
-              style="width:0%"
-              >
-            </div>
-          </div>
-          <button id="select-btn" class="btn btn-default btn-sm">select</button>
-          <br>
-          </script>
 
+        <div id="users-region"></div>
+        <script id="user-tmpl" type="x-template/underscore">
+        <div id="name">name: <%- name %></div>
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar"
+            style="width:0%"
+            >
+          </div>
+        </div>
+        <button id="select-btn" class="btn btn-default btn-sm">select</button>
+        <br>
+        </script>
       </div>
     </div>
   </body>
