@@ -1,4 +1,4 @@
-import FakeServer from './fake_server'
+import FakeServer from './FakeServer'
 // ActionCreatorという名前が適切かは怪しいが、ここで何からの処理を行って
 // イベントをdispatch, storeはそれをキャッチして自身を更新してもらう
 

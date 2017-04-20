@@ -1,8 +1,8 @@
-import { ParentView } from './modules/counter'
-import { UserGroupView } from './modules/user_group'
-import dispatcher from './modules/dispatcher'
-import Store from './modules/store'
-import ActionCreator from './modules/action_creator'
+import { ParentView } from './modules/Counter'
+import { UserGroupView } from './modules/UserGroup'
+import dispatcher from './modules/Dispatcher'
+import Store from './modules/Store'
+import ActionCreator from './modules/ActionCreator'
 
 const state = {
   counter: {

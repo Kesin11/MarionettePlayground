@@ -1,7 +1,7 @@
 import Bb from 'backbone'
 import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
-import { UserCollectionView } from './users'
+import { UserCollectionView } from './User'
 
 export const UserGroupModel = Bb.Model.extend({})
 
