@@ -3,6 +3,15 @@ import Bb from 'backbone'
 import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
 
+export const CounterModel = Bb.Model.extend({
+  increment: function() {
+    this.set('count', this.get('count') + 1)
+  },
+  decrement: function(num) {
+    this.set('count', this.get('count') - num)
+  },
+})
+
 const ChildView = Mn.View.extend({
   template: "#child-tmpl",
   // triggersは直接イベントを発火させる。イベントの引数にはchildViewが付く
@@ -27,9 +36,6 @@ export const ParentView = Mn.View.extend({
   ui: {
     count: "#count",
   },
-  bindings: {
-    "#count": "count",
-  },
   // modelのイベントをハンドリング
   modelEvents: {
     "change": "onModelChange",
@@ -46,8 +52,11 @@ export const ParentView = Mn.View.extend({
     this.stickit()
     this.showChildView("childRegion", new ChildView())
   },
+  bindings: {
+    "#count": "count",
+  },
   // 明示的にChildViewのイベントをハンドリング
-  // 代わりにonChildview**というメソッドを実装していけば直接ハンドリングされる
+  // 実際は明示しなくてもonChildview**()というメソッドを実装するだけでハンドリングされるので省略可能
   childViewEvents: {
     "count:up": "onCountUp",
     "count:down": "onCountDown",
@@ -57,14 +66,5 @@ export const ParentView = Mn.View.extend({
   },
   onCountDown: function(num) {
     this.model.decrement(num)
-  },
-})
-
-export const CounterModel = Bb.Model.extend({
-  increment: function() {
-    this.set('count', this.get('count') + 1)
-  },
-  decrement: function(num) {
-    this.set('count', this.get('count') - num)
   },
 })
