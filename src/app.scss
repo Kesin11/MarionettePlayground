@@ -3,10 +3,9 @@
 }
 
 .users {
-  display: flex; // 昔は-webkit-box
-  flex-wrap: wrap; // 昔は-webkit-flex
+  display: flex;
+  flex-wrap: wrap;
   width: 320px;
-  margin: 0 auto;
 
   .user {
     margin: 5px;
