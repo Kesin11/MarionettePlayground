@@ -1,2 +1,22 @@
 #app {
-  padding: 20px; }
+  padding: 5px; }
+
+.users {
+  display: flex;
+  flex-wrap: wrap;
+  width: 320px; }
+  .users .user {
+    margin: 5px;
+    padding: 5px;
+    width: 140px; }
+    .users .user.selected {
+      background: #EEE; }
+    .users .user .progress.revive-animation {
+      border: 1px solid rgba(255, 0, 0, 0);
+      animation: flashing 0.7s ease-out; }
+
+@keyframes flashing {
+  0% {
+    border-color: red; }
+  100% {
+    border-color: rgba(255, 0, 0, 0); } }
