@@ -4,11 +4,8 @@ import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
 
 export const CounterModel = Bb.Model.extend({
-  increment: function() {
-    this.set('count', this.get('count') + 1)
-  },
-  decrement: function(num) {
-    this.set('count', this.get('count') - num)
+  defaults: {
+    count: 0,
   },
 })
 
@@ -64,6 +61,6 @@ export const CounterParentView = Mn.View.extend({
   // 実際は明示しなくてもonChildview**()というメソッドを実装するだけでハンドリングされるので省略可能
   childViewEvents: {
     "count:up": function() { this.action.countUp(1) },
-    "count:down": function() { this.action.countDown(2) },
+    "count:down": function(value) { this.action.countDown(value) },
   },
 })
