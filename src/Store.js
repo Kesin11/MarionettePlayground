@@ -9,6 +9,8 @@ export default class store {
     this.dispatcher.on("polling:success", this.onPollingSuccess, this)
     this.dispatcher.on("add:user:success", this.onChangeUser, this)
     this.dispatcher.on("remove:user:success", this.onChangeUser, this)
+    this.dispatcher.on("count:up", this.onCountUp, this)
+    this.dispatcher.on("count:down", this.onCountDown, this)
   }
   // 自身のstateを上書きする
   updateState(state) {
@@ -28,4 +30,13 @@ export default class store {
   onChangeUser(newState) {
     this.updateState(newState)
   }
+  onCountUp(value) {
+    this.state.counter.count += value
+    this.dispatch("change:store", this)
+  }
+  onCountDown(value) {
+    this.state.counter.count -= value
+    this.dispatch("change:store", this)
+  }
+
 }

@@ -12,7 +12,7 @@ export const CounterModel = Bb.Model.extend({
   },
 })
 
-const ChildView = Mn.View.extend({
+const CounterChildView = Mn.View.extend({
   template: "#child-tmpl",
   // triggersは直接イベントを発火させる。イベントの引数にはchildViewが付く
   triggers: {
@@ -27,7 +27,7 @@ const ChildView = Mn.View.extend({
   },
 })
 
-export const ParentView = Mn.View.extend({
+export const CounterParentView = Mn.View.extend({
   el: "#counter",
   template: false,
   regions: {
@@ -41,7 +41,12 @@ export const ParentView = Mn.View.extend({
     "change": "onModelChange",
   },
   initialize(args) {
-    this.model = new CounterModel(args.store.state.counter)
+    this.store = args.store
+    this.action = args.action
+    this.model = new CounterModel(this.store.state.counter)
+    this.store.on("change:store", (store) => {
+      this.model.set(store.state.counter)
+    })
   },
   onModelChange: function() {
     this.render()
@@ -50,7 +55,7 @@ export const ParentView = Mn.View.extend({
     // 以下の手動バインディングと同等のことをstickitが担当する
     // this.getUI('count').text(this.model.get('count'))
     this.stickit()
-    this.showChildView("childRegion", new ChildView())
+    this.showChildView("childRegion", new CounterChildView())
   },
   bindings: {
     "#count": "count",
@@ -58,13 +63,7 @@ export const ParentView = Mn.View.extend({
   // 明示的にChildViewのイベントをハンドリング
   // 実際は明示しなくてもonChildview**()というメソッドを実装するだけでハンドリングされるので省略可能
   childViewEvents: {
-    "count:up": "onCountUp",
-    "count:down": "onCountDown",
-  },
-  onCountUp: function(_childView) {
-    this.model.increment()
-  },
-  onCountDown: function(num) {
-    this.model.decrement(num)
+    "count:up": function() { this.action.countUp(1) },
+    "count:down": function() { this.action.countDown(2) },
   },
 })

@@ -27,4 +27,10 @@ export default class ActionCreator {
       this.dispatch("remove:user:success", state)
     })
   }
+  countUp(value) {
+    this.dispatch("count:up", value)
+  }
+  countDown(value) {
+    this.dispatch("count:down", value)
+  }
 }

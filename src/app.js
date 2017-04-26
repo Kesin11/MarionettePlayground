@@ -1,4 +1,4 @@
-import { ParentView } from './modules/Counter'
+import { CounterParentView } from './modules/Counter'
 import { UserGroupView } from './modules/UserGroup'
 import dispatcher from './Dispatcher'
 import Store from './Store'
@@ -21,7 +21,7 @@ const init_state = {
 const store = new Store(dispatcher, init_state)
 const action = new ActionCreator(dispatcher)
 
-const view = new ParentView({ store })
+const view = new CounterParentView({ store, action })
 view.render()
 
 const userGroupView = new UserGroupView({ store, action })
