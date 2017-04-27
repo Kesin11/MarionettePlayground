@@ -7,8 +7,8 @@ export default class ActionCreator {
     this.server = new FakeServer()
     this.dispatcher = dispatcher
   }
-  dispatch(event_name, payload) {
-    this.dispatcher.trigger(event_name, payload)
+  dispatch(eventName, payload) {
+    this.dispatcher.trigger(eventName, payload)
   }
   startPolling() {
     this.interval = setInterval(() => {
@@ -27,12 +27,12 @@ export default class ActionCreator {
       this.dispatch("change:state", state)
     })
   }
-  countUp(value, current_state) {
-    const new_state = { count: current_state.count + value }
-    this.dispatch("change:counter", new_state)
+  countUp(value, currentState) {
+    const newState = { count: currentState.count + value }
+    this.dispatch("change:counter", newState)
   }
-  countDown(value, current_state) {
-    const new_state = { count: current_state - value }
-    this.dispatch("change:counter", new_state )
+  countDown(value, currentState) {
+    const newState = { count: currentState - value }
+    this.dispatch("change:counter", newState )
   }
 }

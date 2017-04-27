@@ -9,11 +9,11 @@ export default class store {
     this.dispatcher.on("change:state", this.updateState, this)
     this.dispatcher.on("change:counter", this.updateCounterState, this)
   }
-  dispatch(event_name, payload) {
-    this.dispatcher.trigger(event_name, payload)
+  dispatch(eventName, payload) {
+    this.dispatcher.trigger(eventName, payload)
   }
-  on(event_name, handler) {
-    this.dispatcher.on(event_name, handler, this)
+  on(eventName, handler) {
+    this.dispatcher.on(eventName, handler, this)
   }
   // 自身のstateを上書きする
   updateState(newState) {
