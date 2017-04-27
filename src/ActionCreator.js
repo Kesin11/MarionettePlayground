@@ -27,10 +27,12 @@ export default class ActionCreator {
       this.dispatch("remove:user:success", state)
     })
   }
-  countUp(value) {
-    this.dispatch("count:up", value)
+  countUp(value, current_state) {
+    const new_state = { count: current_state.count + value }
+    this.dispatch("change:count", new_state)
   }
-  countDown(value) {
-    this.dispatch("count:down", value)
+  countDown(value, current_state) {
+    const new_state = { count: current_state - value }
+    this.dispatch("change:count", new_state )
   }
 }

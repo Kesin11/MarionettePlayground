@@ -58,9 +58,9 @@ export const CounterParentView = Mn.View.extend({
     "#count": "count",
   },
   // 明示的にChildViewのイベントをハンドリング
-  // 実際は明示しなくてもonChildview**()というメソッドを実装するだけでハンドリングされるので省略可能
+  // 実際は明示しなくてもonChildview**()というメソッドを実装するだけでハンドリングされるので省略可
   childViewEvents: {
-    "count:up": function() { this.action.countUp(1) },
-    "count:down": function(value) { this.action.countDown(value) },
+    "count:up": function() { this.action.countUp(1, this.model.toJSON()) },
+    "count:down": function(value) { this.action.countDown(value, this.model.toJSON()) },
   },
 })
