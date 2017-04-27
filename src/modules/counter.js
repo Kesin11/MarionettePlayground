@@ -2,6 +2,7 @@ import Bb from 'backbone'
 // stickitがimportされたときにbackbone.viewがmixinで拡張される
 import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
+import { ContainerView } from '../ContainerView'
 
 export const CounterModel = Bb.Model.extend({
   defaults: {
@@ -24,7 +25,7 @@ const CounterChildView = Mn.View.extend({
   },
 })
 
-export const CounterParentView = Mn.View.extend({
+export const CounterParentView = ContainerView.extend({
   el: "#counter",
   template: false,
   regions: {
@@ -37,13 +38,14 @@ export const CounterParentView = Mn.View.extend({
   modelEvents: {
     "change": "onModelChange",
   },
-  initialize(args) {
-    this.store = args.store
-    this.action = args.action
-    this.model = new CounterModel(this.store.state.counter)
-    this.store.on("change:store", (store) => {
-      this.model.set(store.state.counter)
-    })
+  initialize(_args) {
+    // superのメソッド呼び出し
+    ContainerView.prototype.initialize.apply(this, arguments)
+    this.model = new CounterModel(this.getState())
+  },
+  // override
+  getState: function() {
+    return this.store.state.counter
   },
   onModelChange: function() {
     this.render()
@@ -59,6 +61,7 @@ export const CounterParentView = Mn.View.extend({
   },
   // 明示的にChildViewのイベントをハンドリング
   // 実際は明示しなくてもonChildview**()というメソッドを実装するだけでハンドリングされるので省略可
+  // fluxでカウンターを更新する
   childViewEvents: {
     "count:up": function() { this.action.countUp(1, this.model.toJSON()) },
     "count:down": function(value) { this.action.countDown(value, this.model.toJSON()) },

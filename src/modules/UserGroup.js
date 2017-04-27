@@ -1,11 +1,11 @@
 import Bb from 'backbone'
 import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
-import Mn from 'backbone.marionette'
+import { ContainerView } from '../ContainerView'
 import { UserCollectionView } from './User'
 
 export const UserGroupModel = Bb.Model.extend({})
 
-export const UserGroupView = Mn.View.extend({
+export const UserGroupView = ContainerView.extend({
   el: "#user-group",
   template: false,
   events: {
@@ -15,14 +15,14 @@ export const UserGroupView = Mn.View.extend({
   regions: {
     usersRegion: "#users-region",
   },
-  initialize(args) {
-    this.action = args.action
-    this.store = args.store
-    this.model = new UserGroupModel(args.store.user_group)
-    this.userCollectionView = new UserCollectionView({ store: args.store })
-    this.store.on('change:store', (store) => {
-      this.model.set(store.state.user_group)
-    })
+  initialize(_args) {
+    ContainerView.prototype.initialize.apply(this, arguments)
+    this.model = new UserGroupModel(this.getState())
+    this.userCollectionView = new UserCollectionView({ store: this.store })
+  },
+  // override
+  getState() {
+    return this.store.user_group
   },
   onRender() {
     this.stickit()

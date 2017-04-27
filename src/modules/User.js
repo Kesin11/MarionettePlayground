@@ -1,6 +1,7 @@
 import Bb from 'backbone'
 import stickit from 'backbone.stickit' // eslint-disable-line no-unused-vars
 import Mn from 'backbone.marionette'
+import { ContainerCollectionView } from '../ContainerView'
 
 const UserModel = Bb.Model.extend({
   defaults: {
@@ -88,19 +89,21 @@ const UserView = Mn.View.extend({
   },
 })
 
-export const UserCollectionView = Mn.CollectionView.extend({
+export const UserCollectionView = ContainerCollectionView.extend({
   className: "users",
   childView: UserView,
   childViewEvents: {
     "select:user": 'onSelectUser',
   },
-  initialize(args) {
-    this.store = args.store
-    this.collection = new UserCollection(this.store.state.user_group.users)
-    this.store.on("change:store", (store) => {
-      this.collection.set(store.state.user_group.users)
-    })
+  initialize(_args) {
+    ContainerCollectionView.prototype.initialize.apply(this, arguments)
+    this.collection = new UserCollection(this.getState())
   },
+  // override
+  getState: function() {
+    return this.store.state.user_group.users
+  },
+  // 影響箇所が限定的なUI操作はFluxに乗せなくても例外的に許す
   onSelectUser: function(userView) {
     userView.model.toggleSelected()
   },
