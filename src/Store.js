@@ -6,15 +6,8 @@ export default class store {
     this.dispatcher = dispatcher
     this.state = state
 
-    this.dispatcher.on("polling:success", this.onPollingSuccess, this)
-    this.dispatcher.on("add:user:success", this.onChangeUser, this)
-    this.dispatcher.on("remove:user:success", this.onChangeUser, this)
-    this.dispatcher.on("change:count", this.updateCounterState, this)
-  }
-  // 自身のstateを上書きする
-  updateState(state) {
-    this.state = state
-    this.dispatch("change:store", this)
+    this.dispatcher.on("change:state", this.updateState, this)
+    this.dispatcher.on("change:counter", this.updateCounterState, this)
   }
   dispatch(event_name, payload) {
     this.dispatcher.trigger(event_name, payload)
@@ -22,15 +15,13 @@ export default class store {
   on(event_name, handler) {
     this.dispatcher.on(event_name, handler, this)
   }
-
-  onPollingSuccess(newState) {
-    this.updateState(newState)
-  }
-  onChangeUser(newState) {
-    this.updateState(newState)
+  // 自身のstateを上書きする
+  updateState(newState) {
+    this.state = Object.assign(this.state, newState)
+    this.dispatch("change:store", this)
   }
   updateCounterState(newCounterState) {
-    this.state.counter = Object.assign({}, newCounterState)
+    this.state.counter = Object.assign(this.state.counter, newCounterState)
     this.dispatch("change:store", this)
   }
 }

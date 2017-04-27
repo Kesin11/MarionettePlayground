@@ -13,26 +13,26 @@ export default class ActionCreator {
   startPolling() {
     this.interval = setInterval(() => {
       this.server.getNewState().then((state) => {
-        this.dispatch("polling:success", state)
+        this.dispatch("change:state", state)
       })
     }, 2000)
   }
   addUser() {
     this.server.addUser().then((state) => {
-      this.dispatch("add:user:success", state)
+      this.dispatch("change:state", state)
     })
   }
   removeUser() {
     this.server.removeUser().then((state) => {
-      this.dispatch("remove:user:success", state)
+      this.dispatch("change:state", state)
     })
   }
   countUp(value, current_state) {
     const new_state = { count: current_state.count + value }
-    this.dispatch("change:count", new_state)
+    this.dispatch("change:counter", new_state)
   }
   countDown(value, current_state) {
     const new_state = { count: current_state - value }
-    this.dispatch("change:count", new_state )
+    this.dispatch("change:counter", new_state )
   }
 }
