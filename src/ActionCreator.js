@@ -32,7 +32,7 @@ export default class ActionCreator {
     this.dispatch("change:counter", newState)
   }
   countDown(value, currentState) {
-    const newState = { count: currentState - value }
+    const newState = { count: currentState.count - value }
     this.dispatch("change:counter", newState )
   }
 }
